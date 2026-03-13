@@ -45,7 +45,30 @@ python scripts/setup_google_oauth.py  # Authorize Google access
 python __main__.py                # Start the bot
 ```
 
-New to any of these? Follow the detailed guide below.
+New to any of these? Use the **Setup Wizard** or follow the detailed guide below.
+
+---
+
+## Setup Wizard (Recommended for First-Time Setup)
+
+DoNotes includes a guided web-based setup wizard that walks you through every step — creating API keys, connecting Google services, and configuring the bot. No terminal expertise required.
+
+```bash
+git clone https://github.com/NikhiljVIbe/DoNotes.git && cd DoNotes
+python3 -m venv .venv && source .venv/bin/activate
+pip install -e ".[wizard]"
+python -m wizard
+```
+
+The wizard opens in your browser and guides you through:
+1. Creating a Telegram bot (with real-time token validation)
+2. Connecting your OpenAI API key (with live verification)
+3. Setting up Google Cloud APIs
+4. Uploading OAuth credentials and authorizing Google access
+5. Configuring email, calendars, timezone, and AI personalization
+6. Saving everything and launching the bot
+
+All credentials are validated in real-time before you proceed to the next step.
 
 ---
 

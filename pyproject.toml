@@ -21,6 +21,7 @@ dependencies = [
 
 [project.optional-dependencies]
 menubar = ["rumps>=0.4.0", "py2app>=0.28.0"]
+wizard = ["fastapi>=0.104.0", "uvicorn[standard]>=0.24.0", "python-multipart>=0.0.6", "httpx>=0.25.0"]
 mlx = ["lightning-whisper-mlx>=0.0.10"]
 dev = ["pytest", "pytest-asyncio", "ruff", "mypy"]
 
@@ -30,4 +31,4 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["config*", "src*"]
+include = ["config*", "src*", "wizard*"]

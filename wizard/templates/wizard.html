@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DoNotes Setup Wizard</title>
+    <link rel="stylesheet" href="/static/css/wizard.css">
+</head>
+<body>
+    <div class="wizard-container">
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress-track">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-steps">
+                <span class="step-dot active" data-step="1">1</span>
+                <span class="step-dot" data-step="2">2</span>
+                <span class="step-dot" data-step="3">3</span>
+                <span class="step-dot" data-step="4">4</span>
+                <span class="step-dot" data-step="5">5</span>
+                <span class="step-dot" data-step="6">6</span>
+                <span class="step-dot" data-step="7">7</span>
+                <span class="step-dot" data-step="8">8</span>
+                <span class="step-dot" data-step="9">9</span>
+            </div>
+        </div>
+
+        <!-- ============================================================= -->
+        <!-- Step 1: Welcome -->
+        <!-- ============================================================= -->
+        <section class="step" data-step="1">
+            <div class="step-icon">&#127925;</div>
+            <h1>Welcome to DoNotes</h1>
+            <p class="subtitle">Let's set up your AI-powered productivity bot in about 10 minutes.</p>
+
+            <div class="info-card">
+                <h3>What you'll need:</h3>
+                <ul>
+                    <li><strong>Telegram account</strong> &mdash; to create a bot and interact with it</li>
+                    <li><strong>OpenAI account</strong> &mdash; for voice transcription &amp; smart analysis</li>
+                    <li><strong>Google account</strong> &mdash; for Gmail, Calendar, and Sheets integration</li>
+                </ul>
+            </div>
+
+            <div class="info-card muted">
+                <h3>What DoNotes does:</h3>
+                <p>Send a voice note or text via Telegram. DoNotes transcribes it, extracts action items and calendar events, creates Google Calendar entries, logs to Sheets, and sends email digests &mdash; all automatically.</p>
+            </div>
+
+            <div class="nav-buttons">
+                <div></div>
+                <button class="btn btn-primary" onclick="nextStep()">Get Started &rarr;</button>
+            </div>
+        </section>
+
+        <!-- ============================================================= -->
+        <!-- Step 2: Telegram Bot -->
+        <!-- ============================================================= -->
+        <section class="step" data-step="2" style="display:none">
+            <div class="step-header">
+                <span class="step-badge">Step 1 of 8</span>
+                <h2>Create Your Telegram Bot</h2>
+            </div>
+
+            <div class="instructions">
+                <div class="instruction-step">
+                    <span class="num">1</span>
+                    <div>
+                        <p>Open Telegram and message <a href="https://t.me/BotFather" target="_blank" rel="noopener">@BotFather</a></p>
+                        <small>Opens in a new tab</small>
+                    </div>
+                </div>
+                <div class="instruction-step">
+                    <span class="num">2</span>
+                    <div>
+                        <p>Send <code>/newbot</code> and follow the prompts to create your bot</p>
+                    </div>
+                </div>
+                <div class="instruction-step">
+                    <span class="num">3</span>
+                    <div>
+                        <p>Copy the <strong>bot token</strong> BotFather gives you and paste it below</p>
+                    </div>
+                </div>
+                <div class="instruction-step">
+                    <span class="num">4</span>
+                    <div>
+                        <p>Get your user ID by messaging <a href="https://t.me/userinfobot" target="_blank" rel="noopener">@userinfobot</a></p>
+                        <small>It replies with your numeric user ID</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="telegram_token">Bot Token</label>
+                <input type="text" id="telegram_token" placeholder="123456789:ABCdefGHIjklMNOpqrsTUVwxyz" spellcheck="false">
+            </div>
+            <div class="input-group">
+                <label for="telegram_user_id">Your Telegram User ID</label>
+                <input type="number" id="telegram_user_id" placeholder="987654321">
+            </div>
+
+            <button class="btn btn-validate" onclick="validateTelegram()" id="btn-validate-telegram">Validate</button>
+            <div class="status-msg" id="telegram-status"></div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-back" onclick="prevStep()">&larr; Back</button>
+                <button class="btn btn-primary" id="step2-next" disabled onclick="nextStep()">Next &rarr;</button>
+            </div>
+        </section>
+
+        <!-- ============================================================= -->
+        <!-- Step 3: OpenAI -->
+        <!-- ============================================================= -->
+        <section class="step" data-step="3" style="display:none">
+            <div class="step-header">
+                <span class="step-badge">Step 2 of 8</span>
+                <h2>Connect OpenAI</h2>
+            </div>
+
+            <div class="instructions">
+                <div class="instruction-step">
+                    <span class="num">1</span>
+                    <div>
+                        <p>Go to <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener">platform.openai.com/api-keys</a></p>
+                    </div>
+                </div>
+                <div class="instruction-step">
+                    <span class="num">2</span>
+                    <div>
+                        <p>Click <strong>"Create new secret key"</strong> and copy it</p>
+                    </div>
+                </div>
+                <div class="instruction-step">
+                    <span class="num">3</span>
+                    <div>
+                        <p>Make sure you have billing set up at <a href="https://platform.openai.com/settings/organization/billing" target="_blank" rel="noopener">platform.openai.com/billing</a></p>
+                        <small>Typical usage: ~$0.01-0.05 per voice note</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="openai_key">OpenAI API Key</label>
+                <input type="password" id="openai_key" placeholder="sk-proj-..." spellcheck="false">
+                <button class="btn-toggle-vis" onclick="toggleVisibility('openai_key', this)" title="Show/hide">&#128065;</button>
+            </div>
+
+            <button class="btn btn-validate" onclick="validateOpenAI()" id="btn-validate-openai">Validate</button>
+            <div class="status-msg" id="openai-status"></div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-back" onclick="prevStep()">&larr; Back</button>
+                <button class="btn btn-primary" id="step3-next" disabled onclick="nextStep()">Next &rarr;</button>
+            </div>
+        </section>
+
+        <!-- ============================================================= -->
+        <!-- Step 4: Google Cloud Project -->
+        <!-- ============================================================= -->
+        <section class="step" data-step="4" style="display:none">
+            <div class="step-header">
+                <span class="step-badge">Step 3 of 8</span>
+                <h2>Set Up Google Cloud</h2>
+            </div>
+
+            <p>DoNotes needs access to <strong>Gmail</strong>, <strong>Google Calendar</strong>, and <strong>Google Sheets</strong>. Follow these steps in the Google Cloud Console:</p>
+
+            <div class="instructions">
+                <div class="instruction-step">
+                    <span class="num">1</span>
+                    <div>
+                        <p>Go to <a href="https://console.cloud.google.com/" target="_blank" rel="noopener">console.cloud.google.com</a> and create a new project</p>
+                        <small>Click the project dropdown at the top &rarr; "New Project" &rarr; name it "DoNotes" &rarr; Create</small>
+                    </div>
+                </div>
+                <div class="instruction-step">
+                    <span class="num">2</span>
+                    <div>
+                        <p>Enable these three APIs in <strong>APIs &amp; Services &rarr; Library</strong>:</p>
+                        <ul>
+                            <li><a href="https://console.cloud.google.com/apis/library/gmail.googleapis.com" target="_blank">Gmail API</a></li>
+                            <li><a href="https://console.cloud.google.com/apis/library/calendar-json.googleapis.com" target="_blank">Google Calendar API</a></li>
+                            <li><a href="https://console.cloud.google.com/apis/library/sheets.googleapis.com" target="_blank">Google Sheets API</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="instruction-step">
+                    <span class="num">3</span>
+                    <div>
+                        <p>Configure the <strong>OAuth consent screen</strong>:</p>
+                        <small>APIs &amp; Services &rarr; OAuth consent screen &rarr; External &rarr; Fill in app name ("DoNotes") and your email &rarr; Add yourself as a test user</small>
+                    </div>
+                </div>
+                <div class="instruction-step">
+                    <span class="num">4</span>
+                    <div>
+                        <p>Create an <strong>OAuth 2.0 Client ID</strong>:</p>
+                        <small>APIs &amp; Services &rarr; Credentials &rarr; "+ Create Credentials" &rarr; "OAuth client ID" &rarr; Application type: <strong>Desktop app</strong> &rarr; Create</small>
+                    </div>
+                </div>
+                <div class="instruction-step">
+                    <span class="num">5</span>
+                    <div>
+                        <p>Click <strong>"Download JSON"</strong> on the popup to download your credentials file</p>
+                        <small>You'll upload this file in the next step</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card muted">
+                <p><strong>Tip:</strong> If your OAuth consent screen is in "Testing" mode, tokens expire every 7 days. To avoid this, click "Publish App" on the consent screen &mdash; no review is needed for personal use.</p>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-back" onclick="prevStep()">&larr; Back</button>
+                <button class="btn btn-primary" onclick="nextStep()">I've Done This &rarr;</button>
+            </div>
+        </section>
+
+        <!-- ============================================================= -->
+        <!-- Step 5: Upload Google Credentials -->
+        <!-- ============================================================= -->
+        <section class="step" data-step="5" style="display:none">
+            <div class="step-header">
+                <span class="step-badge">Step 4 of 8</span>
+                <h2>Upload OAuth Credentials</h2>
+            </div>
+
+            <p>Upload the <code>credentials.json</code> file you downloaded from Google Cloud Console in the previous step.</p>
+
+            <div class="upload-area" id="drop-zone">
+                <input type="file" id="credentials_file" accept=".json" onchange="uploadCredentials()">
+                <div class="upload-content">
+                    <div class="upload-icon">&#128196;</div>
+                    <p>Drag &amp; drop <strong>credentials.json</strong> here</p>
+                    <p class="small">or click to browse</p>
+                </div>
+            </div>
+
+            <div class="status-msg" id="credentials-status"></div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-back" onclick="prevStep()">&larr; Back</button>
+                <button class="btn btn-primary" id="step5-next" disabled onclick="nextStep()">Next &rarr;</button>
+            </div>
+        </section>
+
+        <!-- ============================================================= -->
+        <!-- Step 6: Google Authorization -->
+        <!-- ============================================================= -->
+        <section class="step" data-step="6" style="display:none">
+            <div class="step-header">
+                <span class="step-badge">Step 5 of 8</span>
+                <h2>Authorize Google Access</h2>
+            </div>
+
+            <p>Click the button below to authorize DoNotes to access your Gmail, Calendar, and Sheets. You'll be redirected to Google's consent screen and back here automatically.</p>
+
+            <div class="info-card muted">
+                <p><strong>"This app isn't verified" warning:</strong> This is normal for personal projects. Click "Advanced" &rarr; "Go to DoNotes (unsafe)" to proceed. It's your own app &mdash; there's no risk.</p>
+            </div>
+
+            <div class="center-action">
+                <a href="/api/oauth/start" class="btn btn-google" id="btn-oauth">
+                    <svg viewBox="0 0 24 24" width="20" height="20" style="margin-right:8px;vertical-align:middle"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                    Authorize with Google
+                </a>
+            </div>
+
+            <div class="status-msg" id="oauth-status"></div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-back" onclick="prevStep()">&larr; Back</button>
+                <button class="btn btn-primary" id="step6-next" disabled onclick="nextStep()">Next &rarr;</button>
+            </div>
+        </section>
+
+        <!-- ============================================================= -->
+        <!-- Step 7: Configuration -->
+        <!-- ============================================================= -->
+        <section class="step" data-step="7" style="display:none">
+            <div class="step-header">
+                <span class="step-badge">Step 6 of 8</span>
+                <h2>Configure Your Settings</h2>
+            </div>
+
+            <div class="input-group">
+                <label for="user_name">Your Name</label>
+                <input type="text" id="user_name" placeholder="John">
+                <small>Used in AI prompts for context</small>
+            </div>
+
+            <div class="input-group">
+                <label for="gmail_sender">Gmail Address</label>
+                <input type="email" id="gmail_sender" placeholder="you@gmail.com" oninput="autofillGmail()">
+                <small>Digest emails will be sent from and to this address</small>
+            </div>
+
+            <div class="input-group">
+                <label for="gmail_recipient">Digest Recipient Email</label>
+                <input type="email" id="gmail_recipient" placeholder="you@gmail.com">
+                <small>Usually the same as above &mdash; auto-filled</small>
+            </div>
+
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="work_calendar">Work Calendar ID</label>
+                    <input type="text" id="work_calendar" placeholder="you@company.com">
+                    <small>Your work email or calendar ID</small>
+                </div>
+                <div class="input-group">
+                    <label for="personal_calendar">Personal Calendar ID</label>
+                    <input type="text" id="personal_calendar" placeholder="you@gmail.com">
+                    <small>Usually your Gmail address</small>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="timezone">Timezone</label>
+                <select id="timezone">
+                    <option value="">Loading timezones...</option>
+                </select>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-back" onclick="prevStep()">&larr; Back</button>
+                <button class="btn btn-primary" onclick="validateConfig() && nextStep()">Next &rarr;</button>
+            </div>
+        </section>
+
+        <!-- ============================================================= -->
+        <!-- Step 8: Personalization (Optional) -->
+        <!-- ============================================================= -->
+        <section class="step" data-step="8" style="display:none">
+            <div class="step-header">
+                <span class="step-badge">Step 7 of 8</span>
+                <h2>Personalize AI Context <span class="optional-badge">Optional</span></h2>
+            </div>
+
+            <p>Help the AI understand your world. This improves classification accuracy and transcription of names.</p>
+
+            <div class="input-group">
+                <label for="profile_context">About You</label>
+                <textarea id="profile_context" rows="4" placeholder="e.g., Senior Engineer at Acme Corp. Manager is Sarah. Team: Alex, Jordan, Pat. Spouse: Jamie."></textarea>
+                <small>Work role, team members, family &mdash; helps classify work vs personal</small>
+            </div>
+
+            <div class="list-input-group">
+                <label>People You Mention Often</label>
+                <div id="known-people-list" class="tag-list"></div>
+                <div class="tag-input-row">
+                    <input type="text" id="known-people-input" placeholder="Add a name..." onkeydown="if(event.key==='Enter'){addTag('known-people'); event.preventDefault();}">
+                    <button class="btn btn-small" onclick="addTag('known-people')">Add</button>
+                </div>
+            </div>
+
+            <div class="list-input-group">
+                <label>Places You Mention Often</label>
+                <div id="whisper-places-list" class="tag-list"></div>
+                <div class="tag-input-row">
+                    <input type="text" id="whisper-places-input" placeholder="Add a place..." onkeydown="if(event.key==='Enter'){addTag('whisper-places'); event.preventDefault();}">
+                    <button class="btn btn-small" onclick="addTag('whisper-places')">Add</button>
+                </div>
+            </div>
+
+            <div class="list-input-group">
+                <label>Companies You Mention Often</label>
+                <div id="whisper-companies-list" class="tag-list"></div>
+                <div class="tag-input-row">
+                    <input type="text" id="whisper-companies-input" placeholder="Add a company..." onkeydown="if(event.key==='Enter'){addTag('whisper-companies'); event.preventDefault();}">
+                    <button class="btn btn-small" onclick="addTag('whisper-companies')">Add</button>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-back" onclick="prevStep()">&larr; Back</button>
+                <button class="btn btn-secondary" onclick="nextStep()">Skip</button>
+                <button class="btn btn-primary" onclick="nextStep()">Next &rarr;</button>
+            </div>
+        </section>
+
+        <!-- ============================================================= -->
+        <!-- Step 9: Review & Launch -->
+        <!-- ============================================================= -->
+        <section class="step" data-step="9" style="display:none">
+            <div class="step-header">
+                <span class="step-badge">Step 8 of 8</span>
+                <h2>Review &amp; Launch</h2>
+            </div>
+
+            <p>Review your configuration below. Click <strong>Save &amp; Launch</strong> to write the config files and start your bot.</p>
+
+            <div class="review-table" id="review-summary">
+                <!-- Populated by JavaScript -->
+            </div>
+
+            <div class="center-action">
+                <button class="btn btn-launch" onclick="saveAndLaunch()" id="btn-launch">
+                    Save Configuration &amp; Start DoNotes
+                </button>
+            </div>
+
+            <div class="status-msg" id="launch-status"></div>
+
+            <div class="success-panel" id="success-panel" style="display:none">
+                <div class="success-icon">&#9989;</div>
+                <h3>DoNotes is Running!</h3>
+                <p>Open Telegram and send a voice note or message to your bot.</p>
+                <a href="https://t.me/" target="_blank" class="btn btn-primary">Open Telegram</a>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-back" onclick="prevStep()">&larr; Back</button>
+                <div></div>
+            </div>
+        </section>
+    </div>
+
+    <script src="/static/js/wizard.js"></script>
+</body>
+</html>
