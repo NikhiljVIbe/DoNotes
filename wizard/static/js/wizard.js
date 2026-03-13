@@ -39,8 +39,8 @@ const tagData = {
 function showStep(n) {
     if (n < 1 || n > TOTAL_STEPS) return;
 
-    document.querySelectorAll('.step').forEach(s => s.style.display = 'none');
-    const target = document.querySelector(`[data-step="${n}"]`);
+    document.querySelectorAll('section.step').forEach(s => s.style.display = 'none');
+    const target = document.querySelector(`section.step[data-step="${n}"]`);
     if (target) {
         target.style.display = 'block';
         currentStep = n;
