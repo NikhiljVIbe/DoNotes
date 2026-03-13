@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="50%" style="stop-color:#16213e"/>
+      <stop offset="100%" style="stop-color:#0f3460"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#e94560"/>
+      <stop offset="100%" style="stop-color:#f5a623"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00d2ff"/>
+      <stop offset="100%" style="stop-color:#3a7bd5"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+    <filter id="textglow">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="400" rx="16" fill="url(#bg)"/>
+
+  <!-- Subtle grid pattern -->
+  <g opacity="0.04">
+    <line x1="0" y1="50" x2="1200" y2="50" stroke="#fff" stroke-width="1"/>
+    <line x1="0" y1="100" x2="1200" y2="100" stroke="#fff" stroke-width="1"/>
+    <line x1="0" y1="150" x2="1200" y2="150" stroke="#fff" stroke-width="1"/>
+    <line x1="0" y1="200" x2="1200" y2="200" stroke="#fff" stroke-width="1"/>
+    <line x1="0" y1="250" x2="1200" y2="250" stroke="#fff" stroke-width="1"/>
+    <line x1="0" y1="300" x2="1200" y2="300" stroke="#fff" stroke-width="1"/>
+    <line x1="0" y1="350" x2="1200" y2="350" stroke="#fff" stroke-width="1"/>
+    <line x1="100" y1="0" x2="100" y2="400" stroke="#fff" stroke-width="1"/>
+    <line x1="200" y1="0" x2="200" y2="400" stroke="#fff" stroke-width="1"/>
+    <line x1="300" y1="0" x2="300" y2="400" stroke="#fff" stroke-width="1"/>
+    <line x1="400" y1="0" x2="400" y2="400" stroke="#fff" stroke-width="1"/>
+    <line x1="500" y1="0" x2="500" y2="400" stroke="#fff" stroke-width="1"/>
+    <line x1="600" y1="0" x2="600" y2="400" stroke="#fff" stroke-width="1"/>
+    <line x1="700" y1="0" x2="700" y2="400" stroke="#fff" stroke-width="1"/>
+    <line x1="800" y1="0" x2="800" y2="400" stroke="#fff" stroke-width="1"/>
+    <line x1="900" y1="0" x2="900" y2="400" stroke="#fff" stroke-width="1"/>
+    <line x1="1000" y1="0" x2="1000" y2="400" stroke="#fff" stroke-width="1"/>
+    <line x1="1100" y1="0" x2="1100" y2="400" stroke="#fff" stroke-width="1"/>
+  </g>
+
+  <!-- Decorative circles -->
+  <circle cx="150" cy="80" r="60" fill="#e94560" opacity="0.08"/>
+  <circle cx="1050" cy="320" r="80" fill="#00d2ff" opacity="0.06"/>
+  <circle cx="950" cy="80" r="40" fill="#f5a623" opacity="0.06"/>
+
+  <!-- Pipeline icons -->
+  <g transform="translate(600, 280)" text-anchor="middle">
+    <!-- Microphone -->
+    <g transform="translate(-280, 0)">
+      <circle cx="0" cy="0" r="28" fill="none" stroke="#e94560" stroke-width="2" opacity="0.7"/>
+      <text x="0" y="8" text-anchor="middle" font-size="26">🎙️</text>
+    </g>
+    <!-- Arrow -->
+    <line x1="-240" y1="0" x2="-190" y2="0" stroke="url(#accent)" stroke-width="2" opacity="0.5"/>
+    <polygon points="-192,0 -200,-5 -200,5" fill="#f5a623" opacity="0.5"/>
+
+    <!-- Brain / AI -->
+    <g transform="translate(-140, 0)">
+      <circle cx="0" cy="0" r="28" fill="none" stroke="#3a7bd5" stroke-width="2" opacity="0.7"/>
+      <text x="0" y="8" text-anchor="middle" font-size="26">🧠</text>
+    </g>
+    <!-- Arrow -->
+    <line x1="-100" y1="0" x2="-50" y2="0" stroke="url(#glow)" stroke-width="2" opacity="0.5"/>
+    <polygon points="-52,0 -60,-5 -60,5" fill="#3a7bd5" opacity="0.5"/>
+
+    <!-- Checklist -->
+    <g transform="translate(0, 0)">
+      <circle cx="0" cy="0" r="28" fill="none" stroke="#00d2ff" stroke-width="2" opacity="0.7"/>
+      <text x="0" y="8" text-anchor="middle" font-size="26">✅</text>
+    </g>
+    <!-- Arrow -->
+    <line x1="40" y1="0" x2="90" y2="0" stroke="url(#glow)" stroke-width="2" opacity="0.5"/>
+    <polygon points="88,0 80,-5 80,5" fill="#00d2ff" opacity="0.5"/>
+
+    <!-- Calendar -->
+    <g transform="translate(140, 0)">
+      <circle cx="0" cy="0" r="28" fill="none" stroke="#f5a623" stroke-width="2" opacity="0.7"/>
+      <text x="0" y="8" text-anchor="middle" font-size="26">📅</text>
+    </g>
+    <!-- Arrow -->
+    <line x1="180" y1="0" x2="230" y2="0" stroke="url(#accent)" stroke-width="2" opacity="0.5"/>
+    <polygon points="228,0 220,-5 220,5" fill="#f5a623" opacity="0.5"/>
+
+    <!-- Email -->
+    <g transform="translate(280, 0)">
+      <circle cx="0" cy="0" r="28" fill="none" stroke="#e94560" stroke-width="2" opacity="0.7"/>
+      <text x="0" y="8" text-anchor="middle" font-size="26">📧</text>
+    </g>
+  </g>
+
+  <!-- Pipeline labels -->
+  <g transform="translate(600, 335)" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#8892a4" letter-spacing="0.5">
+    <text x="-280" y="0">Capture</text>
+    <text x="-140" y="0">Analyze</text>
+    <text x="0" y="0">Extract</text>
+    <text x="140" y="0">Schedule</text>
+    <text x="280" y="0">Notify</text>
+  </g>
+
+  <!-- Main title -->
+  <text x="600" y="140" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="86" font-weight="800" fill="#ffffff" filter="url(#textglow)" letter-spacing="-2">
+    DoNotes
+  </text>
+
+  <!-- Accent underline -->
+  <rect x="440" y="158" width="320" height="4" rx="2" fill="url(#accent)" opacity="0.8"/>
+
+  <!-- Tagline -->
+  <text x="600" y="200" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="22" fill="#8892a4" letter-spacing="1">
+    Voice memos &amp; notes → organized action
+  </text>
+
+  <!-- Sub-tagline -->
+  <text x="600" y="232" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="14" fill="#5a6377" letter-spacing="2">
+    TELEGRAM  ·  OPENAI  ·  GOOGLE CALENDAR  ·  GMAIL  ·  SHEETS
+  </text>
+</svg>
