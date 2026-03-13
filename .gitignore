@@ -1,0 +1,14 @@
+.env
+data/
+logs/
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+dist/
+build/
+.ruff_cache/
+.mypy_cache/
+.DS_Store
+.claude/
+config/user_profile.py

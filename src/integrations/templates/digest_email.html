@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>DoNotes Digest</title>
+<!--[if mso]>
+<style>table{border-collapse:collapse;}</style>
+<![endif]-->
+</head>
+<body style="margin:0;padding:0;background-color:#f0f2f5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased;">
+
+<!-- Outer wrapper -->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f0f2f5;">
+<tr><td align="center" style="padding:32px 16px;">
+
+<!-- Main container -->
+<table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff;border-radius:12px;overflow:hidden;">
+
+  <!-- ============ BANNER ============ -->
+  <tr>
+    <td style="background-color:{% if processed.category.value == 'work' %}#1976d2{% elif processed.category.value == 'personal' %}#7b1fa2{% else %}#f57c00{% endif %};padding:28px 32px 24px;">
+      <!-- Logo + Badge row -->
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td style="font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.8);">
+            DONOTES
+          </td>
+          <td align="right">
+            <span style="display:inline-block;padding:4px 14px;border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#ffffff;background-color:rgba(255,255,255,0.25);">{{ processed.category.value | upper }}</span>
+          </td>
+        </tr>
+      </table>
+      <!-- Summary title -->
+      <h1 style="margin:16px 0 4px;font-size:21px;font-weight:700;line-height:1.35;color:#ffffff;">{{ processed.summary }}</h1>
+      <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.7);">{{ now.strftime('%A, %B %d, %Y at %I:%M %p') if now else '' }}</p>
+    </td>
+  </tr>
+
+  <!-- ============ BODY ============ -->
+  <tr>
+    <td style="padding:28px 32px 8px;">
+
+      <!-- TYPE & URGENCY CARDS -->
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;">
+        <tr>
+          <td width="48%" valign="top" style="padding-right:8px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:{% if processed.category.value == 'work' %}#eef3ff{% elif processed.category.value == 'personal' %}#f5eeff{% else %}#fff5eb{% endif %};border-radius:10px;">
+              <tr><td style="padding:14px 16px;text-align:center;">
+                <p style="margin:0 0 4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#8c8c8c;">Type</p>
+                <p style="margin:0;font-size:20px;font-weight:700;color:{% if processed.category.value == 'work' %}#1565c0{% elif processed.category.value == 'personal' %}#7b1fa2{% else %}#e65100{% endif %};">{{ processed.category.value | title }}</p>
+              </td></tr>
+            </table>
+          </td>
+          <td width="48%" valign="top">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f8f8f8;border-radius:10px;">
+              <tr><td style="padding:14px 16px;text-align:center;">
+                <p style="margin:0 0 4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#8c8c8c;">Urgency</p>
+                <p style="margin:0;font-size:20px;font-weight:700;color:{% if processed.urgency_score >= 7 %}#c62828{% elif processed.urgency_score >= 4 %}#e65100{% else %}#2e7d32{% endif %};">{{ processed.urgency_score }}<span style="font-size:13px;color:#aaa;font-weight:400;">/10</span></p>
+                <!-- Urgency bar -->
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:8px;">
+                  <tr>
+                    <td style="background-color:#e8e8e8;border-radius:3px;height:6px;padding:0;">
+                      <table role="presentation" width="{{ processed.urgency_score * 10 }}%" cellpadding="0" cellspacing="0" border="0">
+                        <tr><td style="background-color:{% if processed.urgency_score >= 7 %}#f44336{% elif processed.urgency_score >= 4 %}#ff9800{% else %}#4caf50{% endif %};border-radius:3px;height:6px;font-size:1px;">&nbsp;</td></tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td></tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      <!-- ===== SUMMARY ===== -->
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;">
+        <tr>
+          <td style="padding-bottom:10px;border-bottom:2px solid #f0f2f5;">
+            <p style="margin:0;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#666;">&#128221; Summary</p>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding-top:12px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f8faf8;border-radius:8px;border-left:3px solid #4caf50;">
+              <tr><td style="padding:16px;font-size:15px;color:#333;line-height:1.7;">
+                {{ processed.summary }}
+              </td></tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      <!-- ===== ACTIONS TAKEN ===== -->
+      {% if processed.action_items or calendar_links or processed.commitments %}
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;">
+        <tr>
+          <td style="padding-bottom:10px;border-bottom:2px solid #f0f2f5;">
+            <p style="margin:0;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#666;">&#9889; Actions Taken</p>
+          </td>
+        </tr>
+        <tr><td style="padding-top:12px;">
+
+        <!-- Action Items -->
+        {% if processed.action_items %}
+        {% for item in processed.action_items %}
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:8px;border:1px solid #eee;border-radius:8px;">
+          <tr><td style="padding:14px 16px;">
+            <span style="display:inline-block;padding:2px 10px;border-radius:12px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;background-color:{% if item.priority.value == 'urgent' %}#ffebee{% elif item.priority.value == 'high' %}#fff3e0{% elif item.priority.value == 'medium' %}#e3f2fd{% else %}#e8f5e9{% endif %};color:{% if item.priority.value == 'urgent' %}#c62828{% elif item.priority.value == 'high' %}#e65100{% elif item.priority.value == 'medium' %}#1565c0{% else %}#2e7d32{% endif %};">{{ item.priority.value | upper }}</span>
+            <p style="margin:6px 0 2px;font-size:14px;font-weight:600;color:#1a1a2e;">{{ item.description }}</p>
+            {% if item.deadline or item.assigned_to %}
+            <p style="margin:0;font-size:12px;color:#888;">
+              {% if item.deadline %}Deadline: {{ item.deadline.strftime('%b %d, %Y %I:%M %p') }}{% endif %}
+              {% if item.assigned_to %}{% if item.deadline %} &middot; {% endif %}Assigned to: {{ item.assigned_to }}{% endif %}
+            </p>
+            {% endif %}
+          </td></tr>
+        </table>
+        {% endfor %}
+        {% endif %}
+
+        <!-- Calendar Events -->
+        {% if calendar_links %}
+        {% for event, link in zip(processed.calendar_events, calendar_links) %}
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:8px;background-color:#f0f7ff;border:1px solid #d6e8ff;border-radius:8px;">
+          <tr>
+            <td width="48" valign="top" style="padding:14px 0 14px 16px;">
+              <table role="presentation" width="40" cellpadding="0" cellspacing="0" border="0" style="background-color:#1976d2;border-radius:8px;">
+                <tr><td style="padding:8px;text-align:center;font-size:18px;color:#ffffff;">&#128197;</td></tr>
+              </table>
+            </td>
+            <td style="padding:14px 16px;">
+              <p style="margin:0;font-size:14px;font-weight:600;color:#1a1a2e;">{{ event.title }}</p>
+              {% if event.start_time %}<p style="margin:2px 0 0;font-size:12px;color:#666;">{{ event.start_time.strftime('%A, %b %d at %I:%M %p') }}</p>{% endif %}
+              {% if link %}<p style="margin:4px 0 0;"><a href="{{ link }}" style="font-size:12px;color:#1976d2;text-decoration:none;font-weight:600;">Open in Calendar &rarr;</a></p>{% endif %}
+            </td>
+          </tr>
+        </table>
+        {% endfor %}
+        {% endif %}
+
+        <!-- Commitments -->
+        {% if processed.commitments %}
+        {% for c in processed.commitments %}
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:8px;background-color:#fffde7;border:1px solid #fff9c4;border-radius:8px;">
+          <tr><td style="padding:14px 16px;font-size:14px;color:#333;">
+            <strong>{{ c.made_by }}</strong> <span style="color:#f9a825;font-weight:700;">&rarr;</span> <strong>{{ c.made_to }}</strong>: {{ c.description }}
+            {% if c.deadline %}<br><span style="font-size:12px;color:#888;">By: {{ c.deadline.strftime('%b %d, %Y') }}</span>{% endif %}
+          </td></tr>
+        </table>
+        {% endfor %}
+        {% endif %}
+
+        </td></tr>
+      </table>
+      {% endif %}
+
+      <!-- ===== CONVERSATION BETWEEN ===== -->
+      {% if processed.people_mentioned %}
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;">
+        <tr>
+          <td style="padding-bottom:10px;border-bottom:2px solid #f0f2f5;">
+            <p style="margin:0;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#666;">&#128101; Conversation Between</p>
+          </td>
+        </tr>
+        <tr><td style="padding-top:12px;">
+          {% for p in processed.people_mentioned %}
+          <span style="display:inline-block;padding:6px 14px 6px 8px;margin:0 6px 6px 0;background-color:#f0f4ff;border-radius:20px;font-size:13px;font-weight:500;color:#1a1a2e;">
+            <span style="display:inline-block;width:24px;height:24px;line-height:24px;border-radius:50%;background-color:#1976d2;color:#ffffff;text-align:center;font-size:11px;font-weight:700;margin-right:6px;vertical-align:middle;">{{ p.name[0] | upper }}</span>{{ p.name }}{% if p.role %} <span style="font-size:11px;color:#888;">&middot; {{ p.role }}</span>{% endif %}
+          </span>
+          {% endfor %}
+        </td></tr>
+      </table>
+      {% endif %}
+
+      <!-- ===== TOPICS ===== -->
+      {% if processed.key_topics %}
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;">
+        <tr>
+          <td style="padding-bottom:10px;border-bottom:2px solid #f0f2f5;">
+            <p style="margin:0;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#666;">&#127991;&#65039; Topics</p>
+          </td>
+        </tr>
+        <tr><td style="padding-top:12px;">
+          {% for topic in processed.key_topics %}
+          <span style="display:inline-block;padding:6px 14px;margin:0 4px 6px 0;background-color:#f3e5f5;color:#6a1b9a;border-radius:16px;font-size:12px;font-weight:600;">{{ topic }}</span>
+          {% endfor %}
+        </td></tr>
+      </table>
+      {% endif %}
+
+      <!-- ===== FULL TRANSCRIPT ===== -->
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;">
+        <tr>
+          <td style="padding-bottom:10px;border-bottom:2px solid #f0f2f5;">
+            <p style="margin:0;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#666;">&#128196; Full Transcript</p>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding-top:12px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#fafbfc;border:1px solid #eee;border-radius:8px;">
+              <tr><td style="padding:16px;font-size:13px;color:#555;line-height:1.8;white-space:pre-wrap;word-wrap:break-word;">{{ transcript }}</td></tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+    </td>
+  </tr>
+
+  <!-- ============ FOOTER ============ -->
+  <tr>
+    <td style="text-align:center;padding:20px 32px 24px;border-top:1px solid #f0f2f5;">
+      <p style="margin:0;font-size:11px;color:#aaa;letter-spacing:0.3px;">
+        Processed by <span style="font-weight:700;color:#888;">DoNotes</span> &middot; Your AI-powered productivity assistant
+      </p>
+    </td>
+  </tr>
+
+</table>
+<!-- End main container -->
+
+</td></tr>
+</table>
+<!-- End outer wrapper -->
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!--[if mso]>
+<style>table{border-collapse:collapse;}</style>
+<![endif]-->
+</head>
+<body style="margin:0;padding:0;background-color:#f0f2f5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased;">
+
+<!-- Outer wrapper -->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f0f2f5;">
+<tr><td align="center" style="padding:32px 16px;">
+
+<!-- Main container -->
+<table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+
+  <!-- ============ BANNER ============ -->
+  <tr>
+    <td style="background-color:{% if category == 'work' %}#1976d2{% elif category == 'personal' %}#7b1fa2{% else %}#f57c00{% endif %};padding:24px 32px 20px;">
+      <!-- Logo row -->
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.7);">
+            DONOTES
+          </td>
+          <td align="right">
+            <span style="display:inline-block;padding:3px 12px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#ffffff;background-color:rgba(255,255,255,0.22);">{{ category | upper }}</span>
+          </td>
+        </tr>
+      </table>
+      <!-- Subject as heading -->
+      <h1 style="margin:14px 0 4px;font-size:19px;font-weight:700;line-height:1.35;color:#ffffff;">{{ subject }}</h1>
+      <p style="margin:0;font-size:11px;color:rgba(255,255,255,0.65);">{{ now.strftime('%A, %B %d, %Y at %I:%M %p') if now else '' }}</p>
+    </td>
+  </tr>
+
+  <!-- ============ EMAIL BODY ============ -->
+  <tr>
+    <td style="padding:32px 36px 28px;">
+      <p style="margin:0;font-size:15px;color:#222;line-height:1.8;white-space:pre-wrap;">{{ body_text }}</p>
+    </td>
+  </tr>
+
+  <!-- ============ FOOTER ============ -->
+  <tr>
+    <td style="text-align:center;padding:18px 32px 22px;border-top:1px solid #f0f2f5;">
+      <p style="margin:0;font-size:11px;color:#aaa;letter-spacing:0.3px;">
+        Sent via <span style="font-weight:700;color:#888;">DoNotes</span> &middot; Your AI-powered productivity assistant
+      </p>
+    </td>
+  </tr>
+
+</table>
+<!-- End main container -->
+
+</td></tr>
+</table>
+<!-- End outer wrapper -->
+
+</body>
+</html>
